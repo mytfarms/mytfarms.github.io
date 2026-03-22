@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Not Found | Bid to Buy Auction Service</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Libre+Baskerville:ital,wght@0,400;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --earth:     #3d2b1f;
+      --saddle:    #7a4f2d;
+      --wheat:     #d4a85a;
+      --cream:     #f5efe4;
+      --parchment: #ede3d0;
+      --white:     #ffffff;
+      --text:      #2a1f14;
+      --light:     #7a6655;
+    }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--earth);
+      padding: 0 2rem;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--wheat);
+      text-decoration: none;
+    }
+    .logo span { color: var(--cream); }
+
+    nav a {
+      color: var(--parchment);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-left: 2rem;
+      opacity: 0.85;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    nav a:hover { opacity: 1; color: var(--wheat); }
+
+    main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 2rem;
+      background:
+        linear-gradient(160deg, rgba(61,43,31,0.04) 0%, rgba(44,74,110,0.06) 100%);
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 4px;
+      border-top: 5px solid var(--wheat);
+      box-shadow: 0 4px 40px rgba(61,43,31,0.12);
+      padding: 4rem 3.5rem;
+      max-width: 580px;
+      width: 100%;
+      text-align: center;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .gavel {
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: center;
+    }
+
+    .gavel-whole {
+      animation: swing 1.2s ease-in-out 0.5s both;
+      transform-origin: 16px 53px; /* tip of the handle knob */
+      transform-box: fill-box;
+    }
+
+    .error-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 7rem;
+      font-weight: 900;
+      color: var(--parchment);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.2rem;
+    }
+
+    .error-num span { color: var(--wheat); }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      font-weight: 900;
+      color: var(--earth);
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--light);
+      margin-bottom: 2rem;
+    }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: var(--wheat);
+      margin: 1.5rem auto;
+      border-radius: 2px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2.2rem;
+      border-radius: 3px;
+      font-family: 'Source Sans 3', sans-serif;
+      font-weight: 600;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+
+    .btn-primary {
+      background: var(--wheat);
+      color: var(--earth);
+    }
+    .btn-primary:hover {
+      background: #c49540;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .links {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .links a {
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--saddle);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .links a:hover { color: var(--earth); border-color: var(--wheat); }
+
+    footer {
+      background: var(--earth);
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+    footer p {
+      color: rgba(245,239,228,0.45);
+      font-size: 0.8rem;
+      font-family: 'Source Sans 3', sans-serif;
+    }
+    footer strong { color: var(--wheat); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes swing {
+      0%   { transform: rotate(-30deg); }
+      50%  { transform: rotate(15deg); }
+      75%  { transform: rotate(-8deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    @media (max-width: 500px) {
+      .card { padding: 2.5rem 1.5rem; }
+      .error-num { font-size: 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="/" class="logo">Bid <span>to</span> Buy</a>
+    <nav>
+      <a href="/#services">Services</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="card">
+      <div class="gavel">
+        <svg width="140" height="110" viewBox="0 0 140 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Whole gavel tilted ~-25 degrees, handle pointing lower-left, head upper-right -->
+          <g transform="translate(70,55) rotate(-25) translate(-70,-55)">
+
+          <g class="gavel-whole">
+            <!-- ── HANDLE ── tapered rod, wide at neck, narrow in middle, small knob at end -->
+            <!-- Main handle body (tapered via trapezoid path) -->
+            <path d="M18,51 C18,51 22,50 35,49.5 L95,48 L95,57 L35,56.5 C22,56 18,55 18,55 Z"
+                  fill="#a0622a"/>
+            <!-- Handle sheen -->
+            <path d="M18,51.5 C22,51 35,50.5 95,49 L95,51 L35,51.5 C22,52 18,52 18,52 Z"
+                  fill="#c07838" opacity="0.5"/>
+            <!-- End knob -->
+            <ellipse cx="16" cy="53" rx="5" ry="4" fill="#8a5220"/>
+            <ellipse cx="16" cy="52" rx="4" ry="2.5" fill="#b06a30" opacity="0.6"/>
+            <!-- Neck collar where handle meets head -->
+            <rect x="88" y="46" width="9" height="13" rx="2" fill="#7a4020"/>
+            <rect x="88" y="46" width="9" height="4" rx="2" fill="#b06030" opacity="0.5"/>
+
+            <!-- ── GAVEL HEAD ── cylindrical drum shape with banded rings -->
+            <!-- Main drum body -->
+            <rect x="97" y="32" width="34" height="42" rx="6" fill="#a0622a"/>
+            <!-- Top cap (ellipse to give cylinder illusion) -->
+            <ellipse cx="114" cy="34" rx="17" ry="5" fill="#c07838"/>
+            <!-- Top cap highlight -->
+            <ellipse cx="114" cy="33" rx="12" ry="2.5" fill="#d4894a" opacity="0.5"/>
+            <!-- Bottom cap -->
+            <ellipse cx="114" cy="72" rx="17" ry="5" fill="#7a4020"/>
+
+            <!-- Upper groove ring -->
+            <rect x="97" y="40" width="34" height="5" rx="1" fill="#7a4020"/>
+            <rect x="97" y="40" width="34" height="2" rx="1" fill="#5a2e10" opacity="0.4"/>
+            <!-- Lower groove ring -->
+            <rect x="97" y="62" width="34" height="5" rx="1" fill="#7a4020"/>
+            <rect x="97" y="62" width="34" height="2" rx="1" fill="#5a2e10" opacity="0.4"/>
+
+            <!-- Middle band highlight (sheen on the wood) -->
+            <rect x="99" y="45" width="8" height="17" rx="3" fill="#c07838" opacity="0.25"/>
+          </g>
+
+          </g>
+        </svg>
+      </div>
+      <div class="error-num"><span>4</span>0<span>4</span></div>
+      <div class="divider"></div>
+      <h1>This Lot Has Sold — or Never Existed</h1>
+      <p>Looks like the page you're after has been moved, removed, or maybe it never made it to the auction block. No worries — head back to the homepage and we'll get you sorted.</p>
+      <a href="/" class="btn btn-primary">Back to Homepage</a>
+      <div class="links">
+        <a href="/#services">Our Services</a>
+        <a href="/#why">Why Auction</a>
+        <a href="/#faq">FAQ</a>
+        <a href="/#contact">Contact Us</a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p><strong>Bid to Buy Auction Service</strong> &nbsp;·&nbsp; Colorado &amp; the Greater High Plains</p>
+  </footer>
+
+</body>
+</html>
