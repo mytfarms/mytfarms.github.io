@@ -15,6 +15,7 @@
     "name": "Bid to Buy Auction Service",
     "description": "Promoting true price discovery and efficient asset sales through live, online, and simulcast auctions serving Colorado and the greater high plains area.",
     "slogan": "Maximum money, minimum headache.",
+    "telephone": "+17193304280",
     "email": "mytfarms@gmail.com",
     "areaServed": [
       { "@type": "State", "name": "Colorado" },
@@ -421,7 +422,7 @@
     }
 
     .reveal {
-      opacity: 0;
+      opacity: 1;
       transform: translateY(24px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
@@ -744,11 +745,11 @@
 
   <!-- FOOTER -->
   <footer>
-    <p><strong>Bid to Buy Auction Service</strong> &nbsp;·&nbsp; Colorado &amp; the Greater High Plains &nbsp;·&nbsp; <a href="mailto:mytfarms@gmail.com" style="color:var(--wheat)">mytfarms@gmail.com</a></p>
+    <p><strong>Bid to Buy Auction Service</strong> &nbsp;·&nbsp; Colorado &amp; the Greater High Plains &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection#d6bbafa2b0b7a4bba596b1bbb7bfbaf8b5b9bb" style="color:var(--wheat)"><span class="__cf_email__" data-cfemail="0a67737e6c6b7867794a6d676b636624696567">[email&#160;protected]</span></a></p>
     <p style="margin-top:0.5rem">© 2026 Bid to Buy Auction Service. All rights reserved.</p>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver(entries => {
@@ -793,11 +794,4 @@
       const message  = form.message.value.trim() || 'No additional notes.';
       const subject  = encodeURIComponent('Bid to Buy Inquiry — ' + interest);
       const body     = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nInterest: ' + interest + '\nAsset Description: ' + assets + '\n\nMessage:\n' + message);
-      window.location.href = 'mailto:mytfarms@gmail.com?subject=' + subject + '&body=' + body;
-      document.getElementById('form-wrap').style.display = 'none';
-      document.getElementById('form-success').style.display = 'block';
-    }
-  </script>
-
-</body>
-</html>
+      window.location.href 
