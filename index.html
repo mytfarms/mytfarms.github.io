@@ -752,35 +752,44 @@
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
+    let triggered = new Set();
 
     function revealElement(el, i) {
-      setTimeout(() => el.classList.add('visible'), i * 80);
+      if (triggered.has(el)) return;
+      triggered.add(el);
+      setTimeout(() => el.classList.add('visible'), i * 100);
     }
 
+    // Observer for scrolling into view
     const observer = new IntersectionObserver(entries => {
-      entries.forEach((e, i) => {
+      entries.forEach((e) => {
         if (e.isIntersecting) {
-          revealElement(e.target, i);
+          const i = Array.from(reveals).indexOf(e.target);
+          revealElement(e.target, i % 5);
           observer.unobserve(e.target);
         }
       });
-    }, { threshold: 0, rootMargin: '200px 0px 0px 0px' });
+    }, { threshold: 0, rootMargin: '100px 0px 100px 0px' });
 
     reveals.forEach(el => observer.observe(el));
 
-    // Also immediately check anything already in or above the viewport
-    window.addEventListener('load', () => {
+    // On load, reveal everything currently visible
+    function checkVisible() {
       reveals.forEach((el, i) => {
         const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight + 200) {
-          revealElement(el, i);
-          observer.unobserve(el);
+        if (rect.top < window.innerHeight + 100) {
+          revealElement(el, i % 5);
         }
       });
-    });
+    }
 
-    // Hard fallback at 2s in case observer never fires
-    setTimeout(() => { reveals.forEach(el => el.classList.add('visible')); }, 2000);
+    window.addEventListener('load', checkVisible);
+    window.addEventListener('scroll', checkVisible, { passive: true });
+
+    // Absolute fallback — reveal everything after 1s no matter what
+    setTimeout(() => {
+      reveals.forEach((el, i) => revealElement(el, i % 5));
+    }, 1000);
 
     // Modal open/close
     function openModal() {
