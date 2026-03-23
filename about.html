@@ -419,6 +419,13 @@
       const interest = form.interest.value;
       const assets   = form.assets.value.trim() || 'Not specified';
       const message  = form.message.value.trim() || 'No additional notes.';
-      const subject  = encodeURIComponent('MYT Auctions Inquiry — ' + interest);
-      const body     = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\nInterest: ' + interest + '\nAsset Description: ' + assets + '\n\nMessage:\n' + message);
-      window.location.href
+      const subject  = encodeURIComponent('MYT Auctions Inquiry - ' + interest);
+      const body     = encodeURIComponent('Name: ' + name + '%0AEmail: ' + email + '%0AInterest: ' + interest + '%0AAsset Description: ' + assets + '%0A%0AMessage:%0A' + message);
+      window.location.href = 'mailto:mytfarms@gmail.com?subject=' + subject + '&body=' + body;
+      document.getElementById('form-wrap').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
