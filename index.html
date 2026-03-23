@@ -422,7 +422,7 @@
     }
 
     .reveal {
-      opacity: 1;
+      opacity: 0;
       transform: translateY(24px);
       transition: opacity 0.7s ease, transform 0.7s ease;
     }
@@ -752,17 +752,35 @@
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
+
+    function revealElement(el, i) {
+      setTimeout(() => el.classList.add('visible'), i * 80);
+    }
+
     const observer = new IntersectionObserver(entries => {
       entries.forEach((e, i) => {
         if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          revealElement(e.target, i);
           observer.unobserve(e.target);
         }
       });
-    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+    }, { threshold: 0, rootMargin: '200px 0px 0px 0px' });
+
     reveals.forEach(el => observer.observe(el));
-    // Fallback: ensure all content visible after 1.5s
-    setTimeout(() => { reveals.forEach(el => el.classList.add('visible')); }, 1500);
+
+    // Also immediately check anything already in or above the viewport
+    window.addEventListener('load', () => {
+      reveals.forEach((el, i) => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 200) {
+          revealElement(el, i);
+          observer.unobserve(el);
+        }
+      });
+    });
+
+    // Hard fallback at 2s in case observer never fires
+    setTimeout(() => { reveals.forEach(el => el.classList.add('visible')); }, 2000);
 
     // Modal open/close
     function openModal() {
