@@ -548,7 +548,23 @@
 
   <!-- HEADER -->
   <header>
-    <a href="#" class="logo"><div style="text-align:center;line-height:1"><div>MYT</div><div style="font-size:0.7em;letter-spacing:0.18em;">AUCTIONS</div></div></a>
+    <a href="#" class="logo" style="display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;">
+  <svg width="90" height="38" viewBox="0 0 90 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- M -->
+    <path d="M4 32 L4 10 Q4 8 6 8 Q9 8 13 30 Q17 8 20 8 Q22 8 22 10 L22 32" stroke="#d4a85a" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <!-- Y -->
+    <path d="M30 8 L39 20 L48 8 M39 20 L39 32" stroke="#d4a85a" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <!-- T -->
+    <path d="M56 8 L74 8 M65 8 L65 32" stroke="#d4a85a" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <defs>
+      <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
+        <feTurbulence type="fractalNoise" baseFrequency="0.065" numOctaves="3" stitchTiles="stitch" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.8" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+  <div style="font-family:'Source Sans 3',sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:0.22em;color:var(--cream);text-transform:uppercase;">Auctions</div>
+</a>
     <nav>
       <a href="#services">Services</a>
       <a href="#why">Why Auction</a>
