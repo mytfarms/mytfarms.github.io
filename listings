@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Current Listings | MYT Auctions</title>
+  <meta name="description" content="Browse current private treaty listings from MYT Auctions — farm equipment, real estate, livestock, and more across Colorado and the greater high plains." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.mytauctions.com/listings.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.mytauctions.com/listings.html" />
+  <meta property="og:title" content="Current Listings | MYT Auctions" />
+  <meta property="og:description" content="Browse current private treaty listings from MYT Auctions — farm equipment, real estate, livestock, and more across Colorado and the greater high plains." />
+
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --earth:     #3d2b1f;
+      --saddle:    #7a4f2d;
+      --wheat:     #d4a85a;
+      --cream:     #f5efe4;
+      --parchment: #ede3d0;
+      --sky:       #2c4a6e;
+      --white:     #ffffff;
+      --text:      #2a1f14;
+      --light:     #7a6655;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ---- HEADER (matches index.html) ---- */
+    header {
+      background: var(--earth);
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 900; color: var(--wheat); letter-spacing: 0.02em; text-decoration: none; }
+    nav { display: flex; align-items: center; }
+    nav a {
+      color: var(--parchment);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-left: 2rem;
+      opacity: 0.85;
+      transition: opacity 0.2s, color 0.2s;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    nav a:hover { opacity: 1; color: var(--wheat); }
+    nav a[aria-current="page"] { opacity: 1; color: var(--wheat); }
+
+    /* ---- BUTTONS (matches index.html) ---- */
+    .btn { display: inline-block; padding: 0.85rem 2.2rem; border-radius: 3px; font-family: 'Source Sans 3', sans-serif; font-weight: 600; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: all 0.25s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--wheat); color: var(--earth); }
+    .btn-primary:hover { background: #c49540; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+    .btn-outline { background: transparent; color: var(--earth); border: 2px solid var(--saddle); }
+    .btn-outline:hover { border-color: var(--earth); background: rgba(122,79,45,0.08); transform: translateY(-2px); }
+
+    section { padding: 4rem 2rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    .section-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--saddle); margin-bottom: 0.6rem; }
+
+    /* ---- PAGE HERO ---- */
+    .page-hero {
+      background: linear-gradient(160deg, rgba(61,43,31,1) 0%, rgba(44,74,110,0.92) 100%);
+      padding: 3.2rem 2rem 2.6rem;
+      text-align: center;
+    }
+    .page-hero-eyebrow { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--wheat); margin-bottom: 0.8rem; }
+    .page-hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; color: var(--white); margin-bottom: 0.8rem; line-height: 1.1; }
+    .page-hero p { font-family: 'Libre Baskerville', serif; font-size: 1rem; color: rgba(245,239,228,0.85); max-width: 560px; margin: 0 auto; line-height: 1.7; }
+    .page-hero .count-line { margin-top: 1rem; font-family: 'Source Sans 3', sans-serif; font-size: 0.82rem; letter-spacing: 0.06em; color: var(--wheat); text-transform: uppercase; }
+
+    /* ---- FILTER BAR ---- */
+    .filter-bar {
+      background: var(--parchment);
+      padding: 1.1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      border-bottom: 1px solid rgba(122,79,45,0.15);
+    }
+    .filter-pills { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .pill {
+      background: var(--white);
+      border: 1.5px solid #d4c8b8;
+      border-radius: 30px;
+      padding: 0.5rem 1.1rem;
+      font-family: 'Source Sans 3', sans-serif;
+      font-size: 0.83rem;
+      font-weight: 600;
+      color: var(--earth);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .pill:hover { border-color: var(--wheat); }
+    .pill.active { background: var(--wheat); border-color: var(--wheat); color: var(--earth); }
+    .pill .count { opacity: 0.6; font-weight: 400; margin-left: 2px; }
+
+    .toggle-sold { display: flex; align-items: center; gap: 0.5rem; font-size: 0.83rem; color: var(--light); cursor: pointer; user-select: none; white-space: nowrap; }
+    .toggle-sold input { accent-color: var(--wheat); width: 16px; height: 16px; cursor: pointer; }
+
+    /* ---- LISTINGS GRID ---- */
+    .listings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.8rem;
+      margin-top: 2.4rem;
+    }
+
+    .listing-card {
+      background: var(--white);
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(61,43,31,0.08);
+      transition: transform 0.25s, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+    .listing-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(61,43,31,0.15); }
+
+    .listing-media {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--saddle), var(--earth));
+    }
+    .listing-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .listing-media.placeholder { display: flex; align-items: center; justify-content: center; flex-direction: column; color: rgba(245,239,228,0.75); gap: 0.5rem; }
+    .listing-media.placeholder .placeholder-label { font-family: 'Source Sans 3', sans-serif; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .status-ribbon {
+      position: absolute;
+      top: 0.85rem;
+      left: 0.85rem;
+      background: var(--earth);
+      color: var(--cream);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.32rem 0.7rem;
+      border-radius: 3px;
+    }
+    .status-ribbon.sold { background: #4a3828; }
+    .status-ribbon.pending { background: var(--sky); }
+
+    .listing-body { padding: 1.3rem 1.4rem 1.2rem; display: flex; flex-direction: column; flex: 1; }
+    .listing-category { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--saddle); margin-bottom: 0.4rem; }
+    .listing-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--earth); line-height: 1.28; margin-bottom: 0.45rem; }
+    .listing-price { font-size: 1.05rem; font-weight: 700; color: var(--earth); margin-bottom: 0.6rem; }
+    .listing-excerpt { font-family: 'Libre Baskerville', serif; font-size: 0.88rem; font-style: italic; color: var(--light); line-height: 1.6; margin-bottom: 1rem; flex: 1; }
+    .listing-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #ece0cc; padding-top: 0.85rem; font-size: 0.8rem; color: var(--light); gap: 0.6rem; }
+    .listing-footer .view-link { color: var(--saddle); font-weight: 600; flex-shrink: 0; }
+
+    .listing-card.is-sold .listing-media img { filter: grayscale(55%) brightness(0.82); }
+    .listing-card.is-sold .listing-title,
+    .listing-card.is-sold .listing-price { opacity: 0.6; }
+
+    /* ---- EMPTY STATE ---- */
+    .empty-state { text-align: center; padding: 3.5rem 1rem; }
+    .empty-state p.headline { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--earth); margin-bottom: 0.6rem; }
+    .empty-state p.sub { font-family: 'Libre Baskerville', serif; font-style: italic; color: var(--light); font-size: 0.95rem; }
+
+    /* ---- DETAIL VIEW ---- */
+    #detail-section { display: none; padding-top: 3rem; }
+    .detail-back { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--saddle); font-weight: 600; font-size: 0.85rem; text-decoration: none; margin-bottom: 2rem; }
+    .detail-back:hover { color: var(--earth); }
+
+    .detail-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3rem; align-items: start; }
+    @media (max-width: 800px) { .detail-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+    .main-image {
+      aspect-ratio: 4 / 3;
+      border-radius: 4px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--saddle), var(--earth));
+      margin-bottom: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      color: rgba(245,239,228,0.75);
+      gap: 0.6rem;
+    }
+    .main-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .main-image .placeholder-label { font-family: 'Source Sans 3', sans-serif; font-size: 0.8rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+    .thumb-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .thumb { width: 68px; height: 68px; border-radius: 3px; overflow: hidden; cursor: pointer; border: 2px solid transparent; opacity: 0.65; transition: all 0.2s; flex-shrink: 0; }
+    .thumb:hover { opacity: 0.9; }
+    .thumb.active { border-color: var(--wheat); opacity: 1; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .detail-badges { display: flex; gap: 0.6rem; margin-bottom: 1.1rem; flex-wrap: wrap; }
+    .badge { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.32rem 0.8rem; border-radius: 3px; }
+    .badge-status-available { background: var(--wheat); color: var(--earth); }
+    .badge-status-pending { background: var(--sky); color: var(--white); }
+    .badge-status-sold { background: #4a3828; color: var(--cream); }
+    .badge-category { background: var(--parchment); color: var(--saddle); border: 1px solid var(--saddle); }
+
+    .detail-info h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3.4vw, 2.3rem); font-weight: 900; color: var(--earth); margin-bottom: 0.5rem; line-height: 1.15; }
+    .detail-price { font-size: 1.45rem; font-weight: 700; color: var(--earth); margin-bottom: 0.4rem; }
+    .detail-location { font-size: 0.9rem; color: var(--light); margin-bottom: 1.6rem; }
+
+    .specs-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.5rem; margin: 0 0 1.8rem; padding: 1.3rem 1.4rem; background: var(--parchment); border-radius: 4px; }
+    @media (max-width: 480px) { .specs-list { grid-template-columns: 1fr; } }
+    .spec-item dt { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--saddle); margin-bottom: 0.15rem; }
+    .spec-item dd { font-size: 0.95rem; color: var(--text); font-weight: 600; }
+
+    .detail-description { font-family: 'Libre Baskerville', serif; font-size: 1rem; line-height: 1.85; color: #4a3828; margin-bottom: 2.2rem; }
+    .detail-description p { margin-bottom: 1rem; }
+    .detail-description p:last-child { margin-bottom: 0; }
+
+    .detail-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* ---- MODAL (matches index.html) ---- */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(30,18,10,0.72); z-index: 999; align-items: center; justify-content: center; padding: 1.5rem; backdrop-filter: blur(3px); }
+    .modal-overlay.open { display: flex; animation: fadeIn 0.25s ease; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .modal-box { background: var(--white); border-radius: 6px; border-top: 5px solid var(--wheat); max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; padding: 2.8rem; position: relative; animation: slideUp 0.3s ease; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+    .modal-close { position: absolute; top: 1rem; right: 1.2rem; background: none; border: none; font-size: 1.8rem; color: var(--light); cursor: pointer; line-height: 1; transition: color 0.2s; }
+    .modal-close:hover { color: var(--earth); }
+    .modal-title { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 900; color: var(--earth); margin-bottom: 0.4rem; }
+    .modal-sub { font-family: 'Libre Baskerville', serif; font-size: 0.95rem; color: var(--light); line-height: 1.65; margin-bottom: 2rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } .modal-box { padding: 2rem 1.4rem; } }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.2rem; }
+    .form-group label { font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--saddle); }
+    .req { color: var(--wheat); }
+    .form-group input, .form-group textarea { padding: 0.75rem 1rem; border: 1.5px solid #d4c8b8; border-radius: 3px; font-family: 'Source Sans 3', sans-serif; font-size: 0.97rem; color: var(--text); background: var(--cream); transition: border-color 0.2s, box-shadow 0.2s; outline: none; resize: vertical; }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--wheat); box-shadow: 0 0 0 3px rgba(212,168,90,0.18); }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: #b0a090; }
+    .radio-group { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.3rem; }
+    .radio-label { display: flex; align-items: center; gap: 0.5rem; padding: 0.55rem 1rem; border: 1.5px solid #d4c8b8; border-radius: 3px; cursor: pointer; font-size: 0.9rem; color: var(--text); background: var(--cream); transition: border-color 0.2s, background 0.2s; user-select: none; }
+    .radio-label:hover { border-color: var(--wheat); }
+    .radio-label input[type="radio"] { accent-color: var(--wheat); }
+    .radio-label:has(input:checked) { border-color: var(--wheat); background: rgba(212,168,90,0.12); font-weight: 600; }
+    .form-note { font-size: 0.78rem; color: var(--light); text-align: center; margin-top: 0.8rem; }
+    .form-success { text-align: center; padding: 2rem 0; }
+    .success-icon { width: 64px; height: 64px; background: var(--wheat); color: var(--earth); border-radius: 50%; font-size: 2rem; font-weight: 700; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; }
+    .form-success h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--earth); margin-bottom: 0.6rem; }
+    .form-success p { color: var(--light); font-size: 0.97rem; line-height: 1.65; }
+
+    /* ---- FOOTER (matches index.html) ---- */
+    footer { background: var(--earth); padding: 2.5rem 2rem; text-align: center; }
+    footer p { color: rgba(245,239,228,0.5); font-size: 0.82rem; letter-spacing: 0.05em; }
+    footer strong { color: var(--wheat); }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <a href="index.html" class="logo" style="display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;">
+      <svg width="78" height="38" viewBox="0 0 78 38" style="display:block;margin:0 auto;" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 32 L4 10 Q4 8 6 8 Q9 8 13 30 Q17 8 20 8 Q22 8 22 10 L22 32" stroke="#d4a85a" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M30 8 L39 20 L48 8 M39 20 L39 32" stroke="#d4a85a" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <path d="M56 8 L74 8 M65 8 L65 32" stroke="#d4a85a" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <div style="font-family:'Source Sans 3',sans-serif;font-size:0.6rem;font-weight:600;letter-spacing:0.22em;color:var(--cream);text-transform:uppercase;margin-left:-4px;">Auctions</div>
+    </a>
+    <nav>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#why">Why Auction</a>
+      <a href="index.html#faq">FAQ</a>
+      <a href="listings.html" aria-current="page">Listings</a>
+      <a href="about.html">About</a>
+      <a href="#" onclick="openModal(); return false;">Contact</a>
+    </nav>
+  </header>
+
+  <!-- GRID VIEW -->
+  <div id="grid-section">
+
+    <div class="page-hero">
+      <p class="page-hero-eyebrow">Private Treaty &amp; Fixed-Price Inventory</p>
+      <h1>Current Listings</h1>
+      <p>Browse what's available right now. First come, first served — no bidding required.</p>
+      <p class="count-line"><span id="listing-count">0</span> Listings Available</p>
+    </div>
+
+    <div class="filter-bar">
+      <div class="filter-pills" id="filter-pills"></div>
+      <label class="toggle-sold">
+        <input type="checkbox" id="toggle-sold" />
+        Show sold listings
+      </label>
+    </div>
+
+    <section>
+      <div class="container">
+        <div class="listings-grid" id="listings-grid"></div>
+        <div class="empty-state" id="empty-state" style="display:none;">
+          <p class="headline">Nothing here yet.</p>
+          <p class="sub">Try a different category, or check back soon — new inventory gets added all the time.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- DETAIL VIEW -->
+  <div id="detail-section">
+    <div class="container">
+      <a href="listings.html" class="detail-back">&larr; All Listings</a>
+      <div class="detail-grid">
+        <div class="detail-gallery">
+          <div class="main-image" id="detail-main-image"></div>
+          <div class="thumb-row" id="detail-thumbs"></div>
+        </div>
+        <div class="detail-info">
+          <div class="detail-badges" id="detail-badges"></div>
+          <h1 id="detail-title"></h1>
+          <p class="detail-price" id="detail-price"></p>
+          <p class="detail-location" id="detail-location"></p>
+          <dl class="specs-list" id="detail-specs"></dl>
+          <div class="detail-description" id="detail-description"></div>
+          <div class="detail-cta">
+            <button class="btn btn-primary" onclick="inquireAboutListing()">Inquire About This Listing</button>
+            <a href="tel:+17193304280" class="btn btn-outline">Call (719) 330-4280</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT MODAL -->
+  <div id="contact-modal" class="modal-overlay" onclick="closeModalOutside(event)">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+      <div id="form-wrap">
+        <p class="section-label">Contact Us</p>
+        <h2 class="modal-title">Let's Talk</h2>
+        <p class="modal-sub">Tell us about yourself and what you're looking to do. We'll be in touch shortly.</p>
+        <form id="contact-form" onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="f-name">Full Name <span class="req">*</span></label>
+              <input type="text" id="f-name" name="name" placeholder="John Smith" required />
+            </div>
+            <div class="form-group">
+              <label for="f-email">Email Address <span class="req">*</span></label>
+              <input type="email" id="f-email" name="email" placeholder="john@example.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>I'm interested in <span class="req">*</span></label>
+            <div class="radio-group">
+              <label class="radio-label"><input type="radio" name="interest" value="Selling at auction" required /><span>Selling at Auction</span></label>
+              <label class="radio-label"><input type="radio" name="interest" value="Buying at auction" /><span>Buying at Auction</span></label>
+              <label class="radio-label"><input type="radio" name="interest" value="Both buying and selling" /><span>Both</span></label>
+              <label class="radio-label"><input type="radio" name="interest" value="General inquiry" /><span>General Inquiry</span></label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="f-assets">Asset Description</label>
+            <input type="text" id="f-assets" name="assets" placeholder="e.g. Farm equipment, estate items, livestock, real estate…" />
+          </div>
+          <div class="form-group">
+            <label for="f-message">Message / Notes</label>
+            <textarea id="f-message" name="message" rows="4" placeholder="Tell us anything else we should know — location, timeline, questions…"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;display:block;text-align:center;">Send Message</button>
+          <p class="form-note">Your information goes directly to our team and is never shared.</p>
+        </form>
+      </div>
+      <div id="form-success" class="form-success" style="display:none;">
+        <div class="success-icon">&#10003;</div>
+        <h3>Message Sent!</h3>
+        <p>Thanks for reaching out. We'll be in touch with you shortly.</p>
+        <button class="btn btn-primary" onclick="closeModal()" style="margin-top:1.5rem;">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p><strong>MYT Auctions, LLC</strong> &nbsp;&middot;&nbsp; Colorado &amp; the Greater High Plains &nbsp;&middot;&nbsp; <a href="tel:+17193304280" style="color:var(--wheat)">(719) 330-4280</a></p>
+    <p style="margin-top:0.5rem">&copy; 2026 MYT Auctions, LLC. All rights reserved.</p>
+  </footer>
+
+  <script>
+    /* ================================================================
+       LISTINGS DATA
+       ----------------------------------------------------------------
+       This is the ONLY part of the file you (or Claude, on your
+       behalf) should need to touch to add, edit, or remove a listing.
+       Everything below this array — the grid, the filters, the detail
+       page — is generated automatically from whatever is in here.
+
+       HOW TO ADD A NEW LISTING
+       1. Copy the TEMPLATE object below into the LISTINGS array.
+       2. Fill in every field. Delete "specs" or set "images" to []
+          if you don't have them yet rather than leaving placeholders.
+       3. For photos: create a folder in your GitHub repo at
+          listings/<id>/ and upload the images there (GitHub.com ->
+          your repo -> Add file -> Upload files). Reference them here
+          as "listings/<id>/1.jpg", "listings/<id>/2.jpg", etc.
+          The first image in the array is used as the card thumbnail.
+       4. Save the file. No other edits needed — the new category
+          pill, the listing card, and its detail page all build
+          themselves from this one object.
+
+       TEMPLATE — copy this block:
+       {
+         id: "unique-slug-no-spaces",
+         title: "Listing Title",
+         category: "Farm Equipment",
+         status: "available",        // "available" | "pending" | "sold"
+         price: 12500,                // a number, or null if using priceLabel
+         priceLabel: null,            // e.g. "Call for Price" — overrides price if set
+         location: "El Paso County, CO",
+         dateListed: "2026-06-23",    // YYYY-MM-DD — controls "newest first" sort
+         summary: "One sentence shown on the card.",
+         description: "Full write-up for the detail page.\n\nUse a blank line between paragraphs.",
+         specs: [
+           { label: "Year", value: "2018" },
+           { label: "Hours", value: "1,240" }
+         ],
+         images: []                   // e.g. ["listings/unique-slug-no-spaces/1.jpg"]
+       }
+       ================================================================ */
+
+    const LISTINGS = [
+
+      {
+        id: "490-oak-burlington",
+        title: "490 Oak St — Burlington, CO",
+        category: "Real Estate",
+        status: "available",
+        price: 337500,
+        priceLabel: null,
+        location: "Burlington, CO 80807",
+        dateListed: "2026-07-07",
+        summary: "Move-in ready FSBO on a corner lot with fresh updates throughout — new roof, new sewer, new A/C, full basement remodel, plus an attached apartment.",
+        description: "490 Oak Street sits on a generous corner lot at Oak and Martin with plenty of open space for rest, recreation, or room to build a garage or shed to your preference. Several mature, healthy trees provide shade. The yard was fine graded and seeded to new lawn in 2024, with the buffer against the basement graded and graveled for proper drainage. A copper water line with homeowner shutoff and new hydrant were also installed in 2024.\n\nThe roof and gables, all roof vents, and any structural weaknesses in the roof sheathing were replaced in September 2025. Additional insulation has been blown into the attic along with an automatic vent to reduce cooling costs. A new Lennox air conditioner was installed by Plains Heating and Cooling in 2023. The water heater and furnace are newer as well, installed in 2021.\n\nUpdated plumbing, electrical, and aesthetics throughout, including a full basement remodel in winter 2023 — fresh drywall, paint, trim, and carpet, plus all new basement windows foam sealed at that time. Newer LVP floors on the upper level and in the apartment. All modern appliances included with the home, including Samsung washer and dryer purchased new in 2023.\n\nMain level: 2 bedrooms (master with walk-in closet, second with closet), 2 bathrooms, kitchen, living area, storage closet, and storage cabinets. Basement: 1 bathroom, 1 main room, 2 flex rooms, utility closet, laundry room with sealed concrete floor, and understair storage.\n\nThe attached apartment has separate entries, with its own bedroom and closet, storage cabinets, kitchenette with electric range, and bathroom — ideal for overnight visitors or potential rental income. The apartment is heated by electric floorboards and cooled with a window unit.\n\nNew sewer line installed June 2026 by NKP Plumbing, replacing the old clay line with schedule 40 PVC. New 1\" poly natural gas line also installed at that time.\n\nThe house is still occupied but essentially move-in ready. Call or text Cade at (719) 330-4280 anytime to come take a look.",
+        specs: [
+          { label: "Price", value: "$337,500" },
+          { label: "Location", value: "Burlington, CO 80807" },
+          { label: "Lot", value: "Corner — Oak & Martin" },
+          { label: "Main Level", value: "2 bed · 2 bath" },
+          { label: "Basement", value: "1 bath · 2 flex rooms" },
+          { label: "Apartment", value: "1 bed · 1 bath · kitchenette" },
+          { label: "Roof", value: "Replaced Sept 2025" },
+          { label: "A/C", value: "New Lennox 2023" },
+          { label: "Water Heater & Furnace", value: "2021" },
+          { label: "Sewer Line", value: "New PVC — June 2026" },
+          { label: "Gas Line", value: "New 1\" poly — June 2026" },
+          { label: "Lawn", value: "New grade & seed 2024" }
+        ],
+        images: [
+          // Add your photo filenames here, e.g.:
+          // "listings/490-oak-burlington/1.jpg",
+          // "listings/490-oak-burlington/2.jpg",
+        ]
+      }
+
+    ];
+
+    /* ================================================================
+       RENDER ENGINE — you shouldn't need to edit anything below here.
+       ================================================================ */
+
+    const cameraIcon = (size) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 7h3l1.5-2h7L17 7h3a1 1 0 011 1v10a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z"/><circle cx="12" cy="13" r="3.3"/></svg>`;
+
+    const state = { category: 'all', showSold: false };
+
+    function escapeHtml(str) {
+      return String(str).replace(/[&<>"']/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[m]));
+    }
+
+    function formatPrice(l) {
+      if (l.priceLabel) return l.priceLabel;
+      if (typeof l.price === 'number') return '$' + l.price.toLocaleString();
+      return 'Call for Price';
+    }
+
+    function getCategories() {
+      return Array.from(new Set(LISTINGS.map(l => l.category))).sort();
+    }
+
+    function visibleListings() {
+      return LISTINGS
+        .filter(l => state.showSold || l.status !== 'sold')
+        .filter(l => state.category === 'all' || l.category === state.category)
+        .sort((a, b) => new Date(b.dateListed) - new Date(a.dateListed));
+    }
+
+    function renderPills() {
+      const inScope = LISTINGS.filter(l => state.showSold || l.status !== 'sold');
+      const counts = {};
+      inScope.forEach(l => { counts[l.category] = (counts[l.category] || 0) + 1; });
+
+      let html = `<button class="pill ${state.category === 'all' ? 'active' : ''}" data-cat="all">All <span class="count">(${inScope.length})</span></button>`;
+      getCategories().forEach(c => {
+        if (!counts[c]) return;
+        html += `<button class="pill ${state.category === c ? 'active' : ''}" data-cat="${escapeHtml(c)}">${escapeHtml(c)} <span class="count">(${counts[c]})</span></button>`;
+      });
+
+      const wrap = document.getElementById('filter-pills');
+      wrap.innerHTML = html;
+      wrap.querySelectorAll('.pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.category = btn.dataset.cat;
+          renderPills();
+          renderGrid();
+        });
+      });
+    }
+
+    function mediaBlock(l) {
+      const ribbon = l.status !== 'available' ? `<div class="status-ribbon ${l.status}">${l.status}</div>` : '';
+      if (l.images && l.images.length) {
+        return `<div class="listing-media"><img src="${l.images[0]}" alt="${escapeHtml(l.title)}" loading="lazy">${ribbon}</div>`;
+      }
+      return `<div class="listing-media placeholder">${cameraIcon(40)}<span class="placeholder-label">Photos Coming Soon</span>${ribbon}</div>`;
+    }
+
+    function renderGrid() {
+      const items = visibleListings();
+      document.getElementById('listing-count').textContent = LISTINGS.filter(l => l.status !== 'sold').length;
+
+      const grid = document.getElementById('listings-grid');
+      const empty = document.getElementById('empty-state');
+
+      if (!items.length) {
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+        return;
+      }
+      empty.style.display = 'none';
+
+      grid.innerHTML = items.map(l => `
+        <a href="#${l.id}" class="listing-card ${l.status === 'sold' ? 'is-sold' : ''}">
+          ${mediaBlock(l)}
+          <div class="listing-body">
+            <p class="listing-category">${escapeHtml(l.category)}</p>
+            <h3 class="listing-title">${escapeHtml(l.title)}</h3>
+            <p class="listing-price">${formatPrice(l)}</p>
+            <p class="listing-excerpt">${escapeHtml(l.summary)}</p>
+            <div class="listing-footer">
+              <span>${escapeHtml(l.location)}</span>
+              <span class="view-link">View Details &rarr;</span>
+            </div>
+          </div>
+        </a>
+      `).join('');
+    }
+
+    function showDetail(id) {
+      const l = LISTINGS.find(x => x.id === id);
+      if (!l) { location.hash = ''; return; }
+
+      document.getElementById('grid-section').style.display = 'none';
+      const detail = document.getElementById('detail-section');
+      detail.style.display = 'block';
+      window.scrollTo(0, 0);
+      document.title = l.title + ' | MYT Auctions';
+      window.currentListing = l;
+
+      const hasImages = l.images && l.images.length;
+      const mainImg = document.getElementById('detail-main-image');
+      mainImg.innerHTML = hasImages
+        ? `<img src="${l.images[0]}" alt="${escapeHtml(l.title)}">`
+        : `${cameraIcon(56)}<span class="placeholder-label">Photos Coming Soon</span>`;
+
+      const thumbs = document.getElementById('detail-thumbs');
+      if (hasImages && l.images.length > 1) {
+        thumbs.style.display = 'flex';
+        thumbs.innerHTML = l.images.map((src, i) => `<div class="thumb ${i === 0 ? 'active' : ''}" data-src="${src}"><img src="${src}" alt=""></div>`).join('');
+        thumbs.querySelectorAll('.thumb').forEach(t => {
+          t.addEventListener('click', () => {
+            mainImg.querySelector('img').src = t.dataset.src;
+            thumbs.querySelectorAll('.thumb').forEach(x => x.classList.remove('active'));
+            t.classList.add('active');
+          });
+        });
+      } else {
+        thumbs.style.display = 'none';
+        thumbs.innerHTML = '';
+      }
+
+      document.getElementById('detail-badges').innerHTML = `
+        <span class="badge badge-status-${l.status}">${l.status}</span>
+        <span class="badge badge-category">${escapeHtml(l.category)}</span>
+      `;
+      document.getElementById('detail-title').textContent = l.title;
+      document.getElementById('detail-price').textContent = formatPrice(l);
+      document.getElementById('detail-location').textContent = l.location;
+
+      const specsEl = document.getElementById('detail-specs');
+      if (l.specs && l.specs.length) {
+        specsEl.style.display = 'grid';
+        specsEl.innerHTML = l.specs.map(s => `<div class="spec-item"><dt>${escapeHtml(s.label)}</dt><dd>${escapeHtml(s.value)}</dd></div>`).join('');
+      } else {
+        specsEl.style.display = 'none';
+        specsEl.innerHTML = '';
+      }
+
+      document.getElementById('detail-description').innerHTML = l.description
+        .split('\n\n')
+        .map(p => `<p>${escapeHtml(p)}</p>`)
+        .join('');
+    }
+
+    function showGrid() {
+      document.getElementById('detail-section').style.display = 'none';
+      document.getElementById('grid-section').style.display = 'block';
+      document.title = 'Current Listings | MYT Auctions';
+    }
+
+    function route() {
+      const id = location.hash.replace('#', '');
+      if (id) showDetail(id); else showGrid();
+    }
+    window.addEventListener('hashchange', route);
+
+    function inquireAboutListing() {
+      openModal();
+      if (window.currentListing) {
+        document.getElementById('f-assets').value = window.currentListing.title.replace('[DEMO] ', '') + ' (Ref: ' + window.currentListing.id + ')';
+        const radio = document.querySelector('input[name="interest"][value="Buying at auction"]');
+        if (radio) radio.checked = true;
+      }
+    }
+
+    // Modal open/close (matches index.html)
+    function openModal() {
+      document.getElementById('contact-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      document.getElementById('contact-modal').classList.remove('open');
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        document.getElementById('form-wrap').style.display = '';
+        document.getElementById('form-success').style.display = 'none';
+        document.getElementById('contact-form').reset();
+      }, 300);
+    }
+    function closeModalOutside(e) {
+      if (e.target === document.getElementById('contact-modal')) closeModal();
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    function submitForm(e) {
+      e.preventDefault();
+      const form = e.target;
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const interest = form.interest.value;
+      const assets = form.assets.value.trim() || 'Not specified';
+      const message = form.message.value.trim() || 'No additional notes.';
+      const subject = encodeURIComponent('MYT Auctions Inquiry - ' + interest);
+      const body = encodeURIComponent('Name: ' + name + '%0AEmail: ' + email + '%0AInterest: ' + interest + '%0AAsset Description: ' + assets + '%0A%0AMessage:%0A' + message);
+      window.location.href = 'mailto:mytfarms@gmail.com?subject=' + subject + '&body=' + body;
+      document.getElementById('form-wrap').style.display = 'none';
+      document.getElementById('form-success').style.display = 'block';
+    }
+
+    document.getElementById('toggle-sold').addEventListener('change', e => {
+      state.showSold = e.target.checked;
+      renderPills();
+      renderGrid();
+    });
+
+    renderPills();
+    renderGrid();
+    route();
+  </script>
+
+</body>
+</html>
