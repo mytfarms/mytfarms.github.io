@@ -240,6 +240,108 @@
 
     .detail-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
 
+    /* ---- LIGHTBOX ---- */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(10,6,3,0.95);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .lightbox.open { display: flex; }
+
+    .lightbox-img-wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 3.5rem 4.5rem;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .lightbox-img-wrap img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+      border-radius: 3px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1rem; right: 1.2rem;
+      background: none; border: none;
+      color: rgba(245,239,228,0.7);
+      font-size: 2.2rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+      z-index: 10;
+    }
+    .lightbox-close:hover { color: var(--wheat); }
+
+    .lightbox-counter {
+      position: absolute;
+      top: 1.1rem; left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: rgba(245,239,228,0.55);
+      text-transform: uppercase;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%; transform: translateY(-50%);
+      background: rgba(61,43,31,0.55);
+      border: 1.5px solid rgba(212,168,90,0.25);
+      color: var(--cream);
+      width: 48px; height: 48px;
+      border-radius: 50%;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      z-index: 10;
+    }
+    .lightbox-nav:hover { background: rgba(61,43,31,0.9); border-color: var(--wheat); }
+    .lightbox-prev { left: 1rem; }
+    .lightbox-next { right: 1rem; }
+
+    .lightbox-thumbs {
+      display: flex;
+      gap: 6px;
+      padding: 0.8rem 1rem;
+      overflow-x: auto;
+      max-width: 100%;
+      scrollbar-width: thin;
+      scrollbar-color: var(--saddle) transparent;
+    }
+    .lightbox-thumbs::-webkit-scrollbar { height: 4px; }
+    .lightbox-thumbs::-webkit-scrollbar-thumb { background: var(--saddle); border-radius: 2px; }
+
+    .lb-thumb {
+      width: 54px; height: 54px;
+      flex-shrink: 0;
+      border-radius: 3px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: 0.5;
+      transition: all 0.18s;
+    }
+    .lb-thumb:hover { opacity: 0.8; }
+    .lb-thumb.active { border-color: var(--wheat); opacity: 1; }
+    .lb-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* Make main image clickable */
+    .main-image { cursor: zoom-in; }
+
     /* ---- MODAL (matches index.html) ---- */
     .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(30,18,10,0.72); z-index: 999; align-items: center; justify-content: center; padding: 1.5rem; backdrop-filter: blur(3px); }
     .modal-overlay.open { display: flex; animation: fadeIn 0.25s ease; }
@@ -350,6 +452,18 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer">
+    <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">&times;</button>
+    <div class="lightbox-counter"><span id="lb-current">1</span> / <span id="lb-total">1</span></div>
+    <button class="lightbox-nav lightbox-prev" onclick="lbStep(-1)" aria-label="Previous photo">&#8592;</button>
+    <button class="lightbox-nav lightbox-next" onclick="lbStep(1)" aria-label="Next photo">&#8594;</button>
+    <div class="lightbox-img-wrap">
+      <img id="lb-main-img" src="" alt="Listing photo" />
+    </div>
+    <div class="lightbox-thumbs" id="lb-thumbs"></div>
   </div>
 
   <!-- CONTACT MODAL -->
@@ -478,28 +592,39 @@
           { label: "Lawn", value: "New grade & seed 2024" }
         ],
         images: [
-          "listings/490-oak-burlington/FrontGarden.jpeg",
-          "listings/490-oak-burlington/FrontDoor.jpeg",
-          "listings/490-oak-burlington/OakSt.jpeg",
+          // Exterior
           "listings/490-oak-burlington/YardMain.jpeg",
-          "listings/490-oak-burlington/Hydrant.jpeg",
+          "listings/490-oak-burlington/FrontDoor.jpeg",
+          "listings/490-oak-burlington/FrontGarden.jpeg",
+          "listings/490-oak-burlington/OakSt.jpeg",
           "listings/490-oak-burlington/Driveway.jpeg",
-          "listings/490-oak-burlington/BackDoor.jpeg",
           "listings/490-oak-burlington/YardCedar.jpeg",
-          "listings/490-oak-burlington/AptStorage.jpeg",
-          "listings/490-oak-burlington/AptKitchen.jpeg",
-          "listings/490-oak-burlington/AptBath.jpeg",
-          "listings/490-oak-burlington/AptShower.jpeg",
-          "listings/490-oak-burlington/AptHallway.jpeg",
+          "listings/490-oak-burlington/Hydrant.jpeg",
+          // Main level
+          "listings/490-oak-burlington/Living.jpeg",
+          "listings/490-oak-burlington/Kitchen.jpeg",
+          "listings/490-oak-burlington/Upstairs.jpeg",
+          "listings/490-oak-burlington/MasterBed.jpeg",
+          "listings/490-oak-burlington/MasterBed1.jpeg",
+          "listings/490-oak-burlington/MasterBath.jpeg",
+          "listings/490-oak-burlington/Bedroom.jpeg",
+          "listings/490-oak-burlington/FullBath.jpeg",
+          // Basement
           "listings/490-oak-burlington/BasementLiving.jpeg",
-          "listings/490-oak-burlington/StairStorage.jpeg",
-          "listings/490-oak-burlington/Laundry.jpeg",
-          "listings/490-oak-burlington/BasementShower.jpeg",
-          "listings/490-oak-burlington/BasementBath.jpeg",
+          "listings/490-oak-burlington/Flex1Main.jpeg",
+          "listings/490-oak-burlington/Flex1.jpeg",
           "listings/490-oak-burlington/Flex2Main.jpeg",
           "listings/490-oak-burlington/Flex2.jpeg",
-          "listings/490-oak-burlington/Flex1Main.jpeg",
-          "listings/490-oak-burlington/Flex1.jpeg"
+          "listings/490-oak-burlington/BasementBath.jpeg",
+          "listings/490-oak-burlington/BasementShower.jpeg",
+          "listings/490-oak-burlington/Laundry.jpeg",
+          "listings/490-oak-burlington/StairStorage.jpeg",
+          // Apartment
+          "listings/490-oak-burlington/AptLiving.jpeg",
+          "listings/490-oak-burlington/AptBed.jpeg",
+          "listings/490-oak-burlington/AptKitchen.jpeg",
+          "listings/490-oak-burlington/AptBath.jpeg",
+          "listings/490-oak-burlington/AptShower.jpeg"
         ]
       }
 
@@ -609,15 +734,22 @@
       const hasImages = l.images && l.images.length;
       const mainImg = document.getElementById('detail-main-image');
       mainImg.innerHTML = hasImages
-        ? `<img src="${l.images[0]}" alt="${escapeHtml(l.title)}">`
+        ? `<img src="${l.images[0]}" alt="${escapeHtml(l.title)}" title="Click to view fullscreen">`
         : `${cameraIcon(56)}<span class="placeholder-label">Photos Coming Soon</span>`;
 
+      if (hasImages) {
+        mainImg.addEventListener('click', () => openLightbox(l.images, currentThumbIndex));
+      }
+
       const thumbs = document.getElementById('detail-thumbs');
+      let currentThumbIndex = 0;
+
       if (hasImages && l.images.length > 1) {
         thumbs.style.display = 'flex';
-        thumbs.innerHTML = l.images.map((src, i) => `<div class="thumb ${i === 0 ? 'active' : ''}" data-src="${src}"><img src="${src}" alt=""></div>`).join('');
+        thumbs.innerHTML = l.images.map((src, i) => `<div class="thumb ${i === 0 ? 'active' : ''}" data-src="${src}" data-i="${i}"><img src="${src}" alt=""></div>`).join('');
         thumbs.querySelectorAll('.thumb').forEach(t => {
           t.addEventListener('click', () => {
+            currentThumbIndex = parseInt(t.dataset.i);
             mainImg.querySelector('img').src = t.dataset.src;
             thumbs.querySelectorAll('.thumb').forEach(x => x.classList.remove('active'));
             t.classList.add('active');
@@ -662,6 +794,66 @@
       if (id) showDetail(id); else showGrid();
     }
     window.addEventListener('hashchange', route);
+
+    /* ---- LIGHTBOX ---- */
+    let lbImages = [];
+    let lbIndex = 0;
+
+    function openLightbox(images, startIndex) {
+      lbImages = images;
+      lbIndex = startIndex || 0;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+      lbRender();
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function lbStep(dir) {
+      lbIndex = (lbIndex + dir + lbImages.length) % lbImages.length;
+      lbRender();
+    }
+
+    function lbRender() {
+      const img = document.getElementById('lb-main-img');
+      img.src = lbImages[lbIndex];
+      document.getElementById('lb-current').textContent = lbIndex + 1;
+      document.getElementById('lb-total').textContent = lbImages.length;
+
+      const thumbs = document.getElementById('lb-thumbs');
+      thumbs.innerHTML = lbImages.map((src, i) =>
+        `<div class="lb-thumb ${i === lbIndex ? 'active' : ''}" onclick="lbGoto(${i})">
+          <img src="${src}" alt="" loading="lazy">
+        </div>`
+      ).join('');
+
+      const active = thumbs.querySelector('.lb-thumb.active');
+      if (active) active.scrollIntoView({ inline: 'center', behavior: 'smooth', block: 'nearest' });
+    }
+
+    function lbGoto(i) {
+      lbIndex = i;
+      lbRender();
+    }
+
+    document.addEventListener('keydown', e => {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'ArrowRight') lbStep(1);
+      if (e.key === 'ArrowLeft') lbStep(-1);
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    document.getElementById('lightbox').addEventListener('click', e => {
+      if (e.target === document.getElementById('lightbox') ||
+          e.target === document.getElementById('lb-main-img')) {
+        // click on image cycles forward; click on bg closes
+        if (e.target === document.getElementById('lb-main-img')) lbStep(1);
+        else closeLightbox();
+      }
+    });
 
     function inquireAboutListing() {
       openModal();
